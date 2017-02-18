@@ -4,16 +4,23 @@ package selenium;
 
 import java.util.List;
 
+
+
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
 
 public class Hammer {
-	static WebDriver driver;
-
-	public static void main(String[] args) throws InterruptedException {
+	
+	WebDriver driver ;
+	@BeforeTest
+	 public void setup() throws InterruptedException {
 		driver = new FirefoxDriver();
 
 		driver.manage().window().maximize();
@@ -22,11 +29,12 @@ public class Hammer {
 
 		driver.findElement(By.id("headerSearch")).sendKeys("hammer");
 		driver.findElement(By.id("headerSearchButton")).click();
-		selectItem("HDX rubber"); 		// free shipping  DEWALT 0, Husky 1,HDX 2,Estwing double 4,Striker Tools 5,Estwing Straight 7,Stiletto 8, Stiletto 23,
-								// no free shipping HDX rubber 6,Hart 10, husky 15.
-	}
-	public static void selectItem(String itemText) throws InterruptedException {
-
+				}
+	@Test
+	public  void selectItem() throws InterruptedException {
+ String itemText ="HDX rubber";// free shipping  DEWALT 0, Husky 1,HDX 2,Estwing double 4,Striker Tools 5,Estwing Straight 7,Stiletto 8, Stiletto 23,
+	// no free shipping HDX rubber 6,Hart 10, husky 15.
+	
 		String Shipping45 = "Free shipping with $45 order";
 		String Shipping = "Free shipping ";
 	
@@ -102,4 +110,9 @@ public class Hammer {
 		} 
 	}
 
+	
+	 @AfterTest
+	  public void close() {
+	  driver.quit();
+	  }
 }
